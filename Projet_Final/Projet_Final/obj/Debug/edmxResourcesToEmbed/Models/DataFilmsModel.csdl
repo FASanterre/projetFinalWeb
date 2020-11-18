@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BDW56_424qModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Acteur">
+    <Key>
+      <PropertyRef Name="NoActeur" />
+    </Key>
+    <Property Name="NoActeur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sexe" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="Self.FilmsActeurs" FromRole="Acteurs" ToRole="Films" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="NoCategorie" />
+    </Key>
+    <Property Name="NoCategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="Self.FK__Films__Categorie__5B78929E" FromRole="Categories" ToRole="Films" />
+  </EntityType>
+  <EntityType Name="EmpruntsFilm">
+    <Key>
+      <PropertyRef Name="NoExemplaire" />
+    </Key>
+    <Property Name="NoExemplaire" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NoUtilisateur" Type="Int32" />
+    <Property Name="DateEmprunt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Exemplaire" Relationship="Self.FK__EmpruntsF__NoExe__74444068" FromRole="EmpruntsFilms" ToRole="Exemplaires" />
+    <NavigationProperty Name="Utilisateur" Relationship="Self.FK__EmpruntsF__NoUti__753864A1" FromRole="EmpruntsFilms" ToRole="Utilisateurs" />
+  </EntityType>
+  <EntityType Name="Exemplaire">
+    <Key>
+      <PropertyRef Name="NoExemplaire" />
+    </Key>
+    <Property Name="NoExemplaire" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NoUtilisateurProprietaire" Type="Int32" />
+    <NavigationProperty Name="EmpruntsFilm" Relationship="Self.FK__EmpruntsF__NoExe__74444068" FromRole="Exemplaires" ToRole="EmpruntsFilms" />
+    <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Exemplair__NoUti__7167D3BD" FromRole="Exemplaires" ToRole="Utilisateurs" />
+  </EntityType>
+  <EntityType Name="Film">
+    <Key>
+      <PropertyRef Name="NoFilm" />
+    </Key>
+    <Property Name="NoFilm" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnneeSortie" Type="Int32" />
+    <Property Name="Categorie" Type="Int32" />
+    <Property Name="Format" Type="Int32" />
+    <Property Name="DataMAJ" Type="DateTime" Precision="3" />
+    <Property Name="NoUtilisateurMAJ" Type="Int32" />
+    <Property Name="Resume" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DureeMinutes" Type="Int32" />
+    <Property Name="FilmOriginal" Type="Boolean" />
+    <Property Name="ImagePochette" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NbDisques" Type="Int32" />
+    <Property Name="TitreFrancais" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TitreOriginal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VersionEtendue" Type="Boolean" />
+    <Property Name="NoRealisateur" Type="Int32" />
+    <Property Name="NoProducteur" Type="Int32" />
+    <Property Name="Xtra" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Films__Categorie__5B78929E" FromRole="Films" ToRole="Categories" />
+    <NavigationProperty Name="Format1" Relationship="Self.FK__Films__Format__5C6CB6D7" FromRole="Films" ToRole="Formats" />
+    <NavigationProperty Name="Producteur" Relationship="Self.FK__Films__NoProduct__5D60DB10" FromRole="Films" ToRole="Producteurs" />
+    <NavigationProperty Name="Realisateur" Relationship="Self.FK__Films__NoRealisa__5E54FF49" FromRole="Films" ToRole="Realisateurs" />
+    <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Films__NoUtilisa__5F492382" FromRole="Films" ToRole="Utilisateurs" />
+    <NavigationProperty Name="Acteurs" Relationship="Self.FilmsActeurs" FromRole="Films" ToRole="Acteurs" />
+    <NavigationProperty Name="Langues" Relationship="Self.FilmsLangues" FromRole="Films" ToRole="Langues" />
+    <NavigationProperty Name="SousTitres" Relationship="Self.FilmsSousTitres" FromRole="Films" ToRole="SousTitres" />
+    <NavigationProperty Name="Supplements" Relationship="Self.FilmsSupplements" FromRole="Films" ToRole="Supplements" />
+  </EntityType>
+  <EntityType Name="Format">
+    <Key>
+      <PropertyRef Name="NoFormat" />
+    </Key>
+    <Property Name="NoFormat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="Self.FK__Films__Format__5C6CB6D7" FromRole="Formats" ToRole="Films" />
+  </EntityType>
+  <EntityType Name="Langue">
+    <Key>
+      <PropertyRef Name="NoLangue" />
+    </Key>
+    <Property Name="NoLangue" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Langue1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="Self.FilmsLangues" FromRole="Langues" ToRole="Films" />
+  </EntityType>
+  <EntityType Name="Preference">
+    <Key>
+      <PropertyRef Name="NoPreference" />
+    </Key>
+    <Property Name="NoPreference" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UtilisateursPreferences" Relationship="Self.FK__Utilisate__NoPre__79FD19BE" FromRole="Preferences" ToRole="UtilisateursPreferences" />
+  </EntityType>
+  <EntityType Name="Producteur">
+    <Key>
+      <PropertyRef Name="NoProducteur" />
+    </Key>
+    <Property Name="NoProducteur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="Self.FK__Films__NoProduct__5D60DB10" FromRole="Producteurs" ToRole="Films" />
+  </EntityType>
+  <EntityType Name="Realisateur">
+    <Key>
+      <PropertyRef Name="NoRealisateur" />
+    </Key>
+    <Property Name="NoRealisateur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="Self.FK__Films__NoRealisa__5E54FF49" FromRole="Realisateurs" ToRole="Films" />
+  </EntityType>
+  <EntityType Name="SousTitre">
+    <Key>
+      <PropertyRef Name="NoSousTitre" />
+    </Key>
+    <Property Name="NoSousTitre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LangueSousTitre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="Self.FilmsSousTitres" FromRole="SousTitres" ToRole="Films" />
+  </EntityType>
+  <EntityType Name="Supplement">
+    <Key>
+      <PropertyRef Name="NoSupplement" />
+    </Key>
+    <Property Name="NoSupplement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Films" Relationship="Self.FilmsSupplements" FromRole="Supplements" ToRole="Films" />
+  </EntityType>
+  <EntityType Name="TypesUtilisateur">
+    <Key>
+      <PropertyRef Name="TypeUtilisateur" />
+    </Key>
+    <Property Name="TypeUtilisateur" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Utilisateurs" Relationship="Self.FK__Utilisate__TypeU__589C25F3" FromRole="TypesUtilisateurs" ToRole="Utilisateurs" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="NoUtilisateur" />
+    </Key>
+    <Property Name="NoUtilisateur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NomUtilisateur" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Courriel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MotPasse" Type="Int32" />
+    <Property Name="TypeUtilisateur" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="EmpruntsFilms" Relationship="Self.FK__EmpruntsF__NoUti__753864A1" FromRole="Utilisateurs" ToRole="EmpruntsFilms" />
+    <NavigationProperty Name="Exemplaires" Relationship="Self.FK__Exemplair__NoUti__7167D3BD" FromRole="Utilisateurs" ToRole="Exemplaires" />
+    <NavigationProperty Name="Films" Relationship="Self.FK__Films__NoUtilisa__5F492382" FromRole="Utilisateurs" ToRole="Films" />
+    <NavigationProperty Name="TypesUtilisateur" Relationship="Self.FK__Utilisate__TypeU__589C25F3" FromRole="Utilisateurs" ToRole="TypesUtilisateurs" />
+    <NavigationProperty Name="UtilisateursPreferences" Relationship="Self.FK__Utilisate__NoUti__7AF13DF7" FromRole="Utilisateurs" ToRole="UtilisateursPreferences" />
+  </EntityType>
+  <EntityType Name="UtilisateursPreference">
+    <Key>
+      <PropertyRef Name="NoUtilisateur" />
+      <PropertyRef Name="NoPreference" />
+    </Key>
+    <Property Name="NoUtilisateur" Type="Int32" Nullable="false" />
+    <Property Name="NoPreference" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Preference" Relationship="Self.FK__Utilisate__NoPre__79FD19BE" FromRole="UtilisateursPreferences" ToRole="Preferences" />
+    <NavigationProperty Name="Utilisateur" Relationship="Self.FK__Utilisate__NoUti__7AF13DF7" FromRole="UtilisateursPreferences" ToRole="Utilisateurs" />
+    <NavigationProperty Name="ValeursPreference" Relationship="Self.FK__ValeursPreferenc__7DCDAAA2" FromRole="UtilisateursPreferences" ToRole="ValeursPreferences" />
+  </EntityType>
+  <EntityType Name="ValeursPreference">
+    <Key>
+      <PropertyRef Name="NoUtilisateur" />
+      <PropertyRef Name="NoPreference" />
+    </Key>
+    <Property Name="NoUtilisateur" Type="Int32" Nullable="false" />
+    <Property Name="NoPreference" Type="Int32" Nullable="false" />
+    <Property Name="Valeur" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UtilisateursPreference" Relationship="Self.FK__ValeursPreferenc__7DCDAAA2" FromRole="ValeursPreferences" ToRole="UtilisateursPreferences" />
+  </EntityType>
+  <Association Name="FK__Films__Categorie__5B78929E">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="NoCategorie" />
+      </Principal>
+      <Dependent Role="Films">
+        <PropertyRef Name="Categorie" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmpruntsF__NoExe__74444068">
+    <End Role="Exemplaires" Type="Self.Exemplaire" Multiplicity="1" />
+    <End Role="EmpruntsFilms" Type="Self.EmpruntsFilm" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Exemplaires">
+        <PropertyRef Name="NoExemplaire" />
+      </Principal>
+      <Dependent Role="EmpruntsFilms">
+        <PropertyRef Name="NoExemplaire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EmpruntsF__NoUti__753864A1">
+    <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="0..1" />
+    <End Role="EmpruntsFilms" Type="Self.EmpruntsFilm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateurs">
+        <PropertyRef Name="NoUtilisateur" />
+      </Principal>
+      <Dependent Role="EmpruntsFilms">
+        <PropertyRef Name="NoUtilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Exemplair__NoUti__7167D3BD">
+    <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="0..1" />
+    <End Role="Exemplaires" Type="Self.Exemplaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateurs">
+        <PropertyRef Name="NoUtilisateur" />
+      </Principal>
+      <Dependent Role="Exemplaires">
+        <PropertyRef Name="NoUtilisateurProprietaire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Films__Format__5C6CB6D7">
+    <End Role="Formats" Type="Self.Format" Multiplicity="0..1" />
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Formats">
+        <PropertyRef Name="NoFormat" />
+      </Principal>
+      <Dependent Role="Films">
+        <PropertyRef Name="Format" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Films__NoProduct__5D60DB10">
+    <End Role="Producteurs" Type="Self.Producteur" Multiplicity="0..1" />
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producteurs">
+        <PropertyRef Name="NoProducteur" />
+      </Principal>
+      <Dependent Role="Films">
+        <PropertyRef Name="NoProducteur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Films__NoRealisa__5E54FF49">
+    <End Role="Realisateurs" Type="Self.Realisateur" Multiplicity="0..1" />
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Realisateurs">
+        <PropertyRef Name="NoRealisateur" />
+      </Principal>
+      <Dependent Role="Films">
+        <PropertyRef Name="NoRealisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Films__NoUtilisa__5F492382">
+    <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="0..1" />
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateurs">
+        <PropertyRef Name="NoUtilisateur" />
+      </Principal>
+      <Dependent Role="Films">
+        <PropertyRef Name="NoUtilisateurMAJ" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__NoPre__79FD19BE">
+    <End Role="Preferences" Type="Self.Preference" Multiplicity="1" />
+    <End Role="UtilisateursPreferences" Type="Self.UtilisateursPreference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Preferences">
+        <PropertyRef Name="NoPreference" />
+      </Principal>
+      <Dependent Role="UtilisateursPreferences">
+        <PropertyRef Name="NoPreference" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__TypeU__589C25F3">
+    <End Role="TypesUtilisateurs" Type="Self.TypesUtilisateur" Multiplicity="0..1" />
+    <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesUtilisateurs">
+        <PropertyRef Name="TypeUtilisateur" />
+      </Principal>
+      <Dependent Role="Utilisateurs">
+        <PropertyRef Name="TypeUtilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Utilisate__NoUti__7AF13DF7">
+    <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="1" />
+    <End Role="UtilisateursPreferences" Type="Self.UtilisateursPreference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateurs">
+        <PropertyRef Name="NoUtilisateur" />
+      </Principal>
+      <Dependent Role="UtilisateursPreferences">
+        <PropertyRef Name="NoUtilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ValeursPreferenc__7DCDAAA2">
+    <End Role="UtilisateursPreferences" Type="Self.UtilisateursPreference" Multiplicity="1" />
+    <End Role="ValeursPreferences" Type="Self.ValeursPreference" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="UtilisateursPreferences">
+        <PropertyRef Name="NoUtilisateur" />
+        <PropertyRef Name="NoPreference" />
+      </Principal>
+      <Dependent Role="ValeursPreferences">
+        <PropertyRef Name="NoUtilisateur" />
+        <PropertyRef Name="NoPreference" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FilmsActeurs">
+    <End Role="Acteurs" Type="Self.Acteur" Multiplicity="*" />
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+  </Association>
+  <Association Name="FilmsLangues">
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+    <End Role="Langues" Type="Self.Langue" Multiplicity="*" />
+  </Association>
+  <Association Name="FilmsSousTitres">
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+    <End Role="SousTitres" Type="Self.SousTitre" Multiplicity="*" />
+  </Association>
+  <Association Name="FilmsSupplements">
+    <End Role="Films" Type="Self.Film" Multiplicity="*" />
+    <End Role="Supplements" Type="Self.Supplement" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="BDW56_424qEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Acteurs" EntityType="Self.Acteur" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="EmpruntsFilms" EntityType="Self.EmpruntsFilm" />
+    <EntitySet Name="Exemplaires" EntityType="Self.Exemplaire" />
+    <EntitySet Name="Films" EntityType="Self.Film" />
+    <EntitySet Name="Formats" EntityType="Self.Format" />
+    <EntitySet Name="Langues" EntityType="Self.Langue" />
+    <EntitySet Name="Preferences" EntityType="Self.Preference" />
+    <EntitySet Name="Producteurs" EntityType="Self.Producteur" />
+    <EntitySet Name="Realisateurs" EntityType="Self.Realisateur" />
+    <EntitySet Name="SousTitres" EntityType="Self.SousTitre" />
+    <EntitySet Name="Supplements" EntityType="Self.Supplement" />
+    <EntitySet Name="TypesUtilisateurs" EntityType="Self.TypesUtilisateur" />
+    <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+    <EntitySet Name="UtilisateursPreferences" EntityType="Self.UtilisateursPreference" />
+    <EntitySet Name="ValeursPreferences" EntityType="Self.ValeursPreference" />
+    <AssociationSet Name="FK__Films__Categorie__5B78929E" Association="Self.FK__Films__Categorie__5B78929E">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Films" EntitySet="Films" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmpruntsF__NoExe__74444068" Association="Self.FK__EmpruntsF__NoExe__74444068">
+      <End Role="Exemplaires" EntitySet="Exemplaires" />
+      <End Role="EmpruntsFilms" EntitySet="EmpruntsFilms" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EmpruntsF__NoUti__753864A1" Association="Self.FK__EmpruntsF__NoUti__753864A1">
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+      <End Role="EmpruntsFilms" EntitySet="EmpruntsFilms" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Exemplair__NoUti__7167D3BD" Association="Self.FK__Exemplair__NoUti__7167D3BD">
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+      <End Role="Exemplaires" EntitySet="Exemplaires" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Films__Format__5C6CB6D7" Association="Self.FK__Films__Format__5C6CB6D7">
+      <End Role="Formats" EntitySet="Formats" />
+      <End Role="Films" EntitySet="Films" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Films__NoProduct__5D60DB10" Association="Self.FK__Films__NoProduct__5D60DB10">
+      <End Role="Producteurs" EntitySet="Producteurs" />
+      <End Role="Films" EntitySet="Films" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Films__NoRealisa__5E54FF49" Association="Self.FK__Films__NoRealisa__5E54FF49">
+      <End Role="Realisateurs" EntitySet="Realisateurs" />
+      <End Role="Films" EntitySet="Films" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Films__NoUtilisa__5F492382" Association="Self.FK__Films__NoUtilisa__5F492382">
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+      <End Role="Films" EntitySet="Films" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__NoPre__79FD19BE" Association="Self.FK__Utilisate__NoPre__79FD19BE">
+      <End Role="Preferences" EntitySet="Preferences" />
+      <End Role="UtilisateursPreferences" EntitySet="UtilisateursPreferences" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__TypeU__589C25F3" Association="Self.FK__Utilisate__TypeU__589C25F3">
+      <End Role="TypesUtilisateurs" EntitySet="TypesUtilisateurs" />
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Utilisate__NoUti__7AF13DF7" Association="Self.FK__Utilisate__NoUti__7AF13DF7">
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+      <End Role="UtilisateursPreferences" EntitySet="UtilisateursPreferences" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ValeursPreferenc__7DCDAAA2" Association="Self.FK__ValeursPreferenc__7DCDAAA2">
+      <End Role="UtilisateursPreferences" EntitySet="UtilisateursPreferences" />
+      <End Role="ValeursPreferences" EntitySet="ValeursPreferences" />
+    </AssociationSet>
+    <AssociationSet Name="FilmsActeurs" Association="Self.FilmsActeurs">
+      <End Role="Acteurs" EntitySet="Acteurs" />
+      <End Role="Films" EntitySet="Films" />
+    </AssociationSet>
+    <AssociationSet Name="FilmsLangues" Association="Self.FilmsLangues">
+      <End Role="Films" EntitySet="Films" />
+      <End Role="Langues" EntitySet="Langues" />
+    </AssociationSet>
+    <AssociationSet Name="FilmsSousTitres" Association="Self.FilmsSousTitres">
+      <End Role="Films" EntitySet="Films" />
+      <End Role="SousTitres" EntitySet="SousTitres" />
+    </AssociationSet>
+    <AssociationSet Name="FilmsSupplements" Association="Self.FilmsSupplements">
+      <End Role="Films" EntitySet="Films" />
+      <End Role="Supplements" EntitySet="Supplements" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
